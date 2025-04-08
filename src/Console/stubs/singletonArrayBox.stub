@@ -1,0 +1,158 @@
+<?php
+
+namespace {{namespace}};
+
+class DummyClass
+{
+    protected array $data = [];
+
+    /**
+     * @return mixed|array|bool
+     */
+    public function getData($key = null): mixed
+    {
+        if ($key) {
+            return $this->getByKey($key);
+        }
+        return $this->data;
+    }
+
+    /**
+     * @param  mixed  $input
+     * @param  mixed|null  $value
+     * @return void
+     */
+    public function putData(mixed $input, mixed $value = null): void
+    {
+        if (func_num_args() === 1) {
+            if (is_array($input)) {
+                foreach ($input as $k => $v) {
+                    $this->setData($k, $v);
+                }
+            }
+        }
+
+        if (func_num_args() === 2) {
+            $this->setData($input, $value);
+        }
+    }
+
+    /**
+     * @param  mixed|null  $key
+     * @param  bool  $precise
+     * @return bool
+     */
+    public function exist(mixed $key = null, bool $precise = false): bool
+    {
+        if (is_null($key)) {
+            return !empty($this->data);
+        } elseif (is_array($key)) {
+            $positive = $negative = 0;
+            foreach ($key as $k) {
+                isset($this->data[$k]) ? $positive++ : $negative++;
+            }
+            return $precise ? $positive && !$negative : (bool) $positive;
+        } else {
+            return isset($this->data[$key]);
+        }
+    }
+
+    /**
+     * @param  string  $key
+     * @param  string|array  $search
+     * @param  bool  $precise
+     * @return bool
+     */
+    public function existValue(string $key, string|array $search, bool $precise = false): bool
+    {
+        $data = $this->data[$key] ?? false;
+        if ($data) {
+            $data = array_flip($data);
+            if (is_array($search)) {
+                $positive = $negative = 0;
+                foreach ($search as $k) {
+                    isset($data[$k]) ? $positive++ : $negative++;
+                }
+                return $precise ? $positive && !$negative : (bool) $positive;
+            } else {
+                return isset($data[$search]);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param  string|array  $required_key
+     * @return array|bool
+     */
+    public function only(string|array $required_key): array|bool
+    {
+        if (is_string($required_key)) {
+            return isset($this->data[$required_key]) ? [$required_key => $this->data[$required_key]] : false;
+        } elseif (is_array($required_key)) {
+            $out = [];
+            foreach ($required_key as $key) {
+                if (isset($this->data[$key])) {
+                    $out[$key] = $this->data[$key];
+                }
+            }
+            return $out ?: false;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param  string|array  $required_key
+     * @return array|void
+     */
+    public function except(string|array $required_key)
+    {
+        $out = $this->data;
+        if (is_string($required_key)) {
+            if (isset($out[$required_key])) {
+                unset($out[$required_key]);
+            }
+            return $out;
+        }
+        if (is_array($required_key)) {
+            foreach ($required_key as $key) {
+                if (isset($out[$key])) {
+                    unset($out[$key]);
+                }
+            }
+            return $out;
+        }
+    }
+
+
+    //--------- private function ---------------------------
+    private function setData($key, $value): void
+    {
+        $this->data[$key] = $value;
+    }
+
+    private function getByKey($key)
+    {
+        if (str($key)->contains('.')) {
+            return $this->getValue($this->data, $key);
+        } else {
+            return $this->data[$key] ?? false;
+        }
+    }
+
+    private function getValue($arr, $stringKey)
+    {
+        $keys = explode('.', $stringKey);
+        foreach ($keys as $key) {
+            if (isset($arr[$key])) {
+                $arr = $arr[$key];
+            } else {
+                $arr = false;
+                break;
+            }
+        }
+        return $arr;
+    }
+}
