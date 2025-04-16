@@ -5,6 +5,7 @@
 composer require lnext/auxiliary-solutions
 ```
 
-This is a trait for implementing model options that will be available as table fields.  
-The connection instructions are described here: [doc-endless-options.md](https://github.com/lnext-commits/endless-options/blob/main/doc-endless-options.md)
+- trait CheckRelation to expand the capabilities of the resource: [doc-check-relation](https://github.com/lnext-commits/auxiliary-solutions/blob/main/doc-check-relation.md)
+- commands for creating a singleton with a box feature: [doc-singleton-box](https://github.com/lnext-commits/auxiliary-solutions/blob/main/doc-singleton-box.md)
+- the command to create a seeder file with a progress bar: [doc-seeder](https://github.com/lnext-commits/auxiliary-solutions/blob/main/doc-seeder.md)
  
