@@ -10,7 +10,7 @@ use Lnext\AuxiliarySolutions\Console\Maker\SingletonArrayBoxClass;
 use Lnext\AuxiliarySolutions\Console\Maker\SingletonClass;
 use Lnext\AuxiliarySolutions\Console\Singleton;
 
-class ServiceFacadesProvider extends ServiceProvider implements DeferrableProvider
+class ServiceCommandProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Bootstrap the application events.
