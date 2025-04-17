@@ -9,7 +9,14 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Lnext\\AuxiliarySolutions\\": "src"
+            "Lnext\\AuxiliarySolutions\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lnext\\AuxiliarySolutions\\ServiceCommandProvider"
+            ]
         }
     },
     "authors": [
