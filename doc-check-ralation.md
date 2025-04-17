@@ -6,7 +6,8 @@ use CheckRelation;
 The whenRelation function checks if the relation is loaded,
 then it runs a private function, the result of which lies in the field
 for which it is called, otherwise the field is not added to the resource at the output
-``` php
+
+```php
 <?php
 
 namespace App\Http\Resources;
