@@ -1,0 +1,21 @@
+{
+    "name": "lnext/auxiliary-solutions",
+    "description": "A package for small Laravel extensions",
+    "type": "library",
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^9|^10|^11|^12"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Lnext\\AuxiliarySolutions\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Skorilkin Aleksey",
+            "email": "own@lnext.space"
+        }
+    ]
+}
