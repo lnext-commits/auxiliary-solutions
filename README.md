@@ -1,4 +1,4 @@
-### A package for expands the model's capabilities in Laravel
+### A package for small Laravel extensions
 ### _To install, use the composer command_
 
 ```sh
